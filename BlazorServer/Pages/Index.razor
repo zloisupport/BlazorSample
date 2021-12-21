@@ -1,13 +1,57 @@
 @page "/"
 @using System.Net.Security
-
 <h1>Hello, world!</h1>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?"/>
-
+<RepeatComponent @ref="repeater" Items="Customers">
+  <Header>
+    <h2>Customers</h2>
+  </Header>
+  <Row Context="customer">
+    <div>
+      @customer.CompanyName &nbsp;
+      <button class="btn btn-primary" @onclick="@(() => { EditCustomer(customer); })">Edit</button>
+    </div>
+    <div class="m1-5">@customer.ContactName</div>
+    <div class="m1-5">@customer.PhoneNumber</div>
+    
+  </Row>
+  <EditTemplate Context="currentCustomer">
+    <div>
+      <text> Company Name</text><input class="form-control" @bind-value="currentCustomer.CompanyName"/>
+    </div>   
+    <div>
+      <text> Contact Name</text><input class="form-control" @bind-value="currentCustomer.ContactName"/>
+    </div> 
+    <div>
+      <text> Phone Number</text><input class="form-control" @bind-value="currentCustomer.PhoneNumber"/>
+    </div>
+  </EditTemplate>
+</RepeatComponent>
 @code
 {
+  private RepeatComponent<Customer> repeater;
+  private List<Customer> Customers;
+  protected override void OnInitialized()
+  {
+    base.OnInitialized();
+    Customers = new List<Customer>();
+    Customers.AddRange(new Customer[]
+    {
+      new Customer{CompanyName = "ADC Company",ContactName = "Оганесян Эвелина Семеновна",PhoneNumber = "+7 (948) 629-97-79"},
+      new Customer{CompanyName = "ADC Company",ContactName = "Гусев Бажен Алексеевич",PhoneNumber = "+7 (955) 894-44-82"},
+      new Customer{CompanyName = "ADC Company",ContactName = "Задорин Ангел Борисович",PhoneNumber = "+7 (948) 629-97-79"},
+    });
+  }
+
+  private void EditCustomer(Customer customer)
+  {
+    repeater.ItemToEdit = customer;
+  } 
   
+  public class  Customer
+  {
+    public string CompanyName { get; set; }
+    public string ContactName { get; set; }
+    public string PhoneNumber { get; set; }
+  }
 }
