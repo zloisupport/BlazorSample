@@ -4,25 +4,45 @@
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
-<FieldComponent Label="Name">
-    <Control>
-        <input class="input" type="text" placeholder="Name">
-    </Control>
-</FieldComponent>
-<FieldComponent Label="Title">
-    <Control>
-        <input class="input" type="text" placeholder="Title">
-    </Control>
-</FieldComponent>
-<FieldComponent Label="Department">
-    <Control>
-        <input class="input" type="text" placeholder="Department">
-    </Control>
-</FieldComponent>
+@* <FieldComponent Label="Name"> *@
+@*     <Control> *@
+@*         <input class="input" type="text" placeholder="Name"> *@
+@*     </Control> *@
+@* </FieldComponent> *@
+@* <FieldComponent Label="Title"> *@
+@*     <Control> *@
+@*         <input class="input" type="text" placeholder="Title"> *@
+@*     </Control> *@
+@* </FieldComponent> *@
+@* <FieldComponent Label="Department"> *@
+@*     <Control> *@
+@*         <input class="input" type="text" placeholder="Department"> *@
+@*     </Control> *@
+@* </FieldComponent> *@
 
 <br/>
-
+<GridAuoComponent Items="emploees" CssClass="is-striped" ColumnsToExclude="Id,Title"></GridAuoComponent>
 @code 
 {
+    private List<Employee> emploees;
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        emploees = new List<Employee>();
+        emploees.AddRange(new Employee[4]
+        {
+            new Employee(){Id = 1 , Name = "John",Department = "Dev"},
+            new Employee(){Id = 2 , Name = "Jinx",Department = "SysAdmin"},
+            new Employee(){Id = 3 , Name = "Poppy",Department = "UX/Design"},
+            new Employee(){Id = 4 , Name = "Rambl",Department = "PM"},
+        });
+    }
 
+    public class  Employee
+    {
+        public int  Id { get; set; }
+        public string Name { get; set; }
+        public string Title { get; set; }
+        public string Department { get; set; }
+    }
 }
