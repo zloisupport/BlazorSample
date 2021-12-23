@@ -13,15 +13,18 @@ Welcome to your new app.
   private Employee employee;
 
 
-  protected override Task OnInitializedAsync()
+  protected override async Task OnInitializedAsync()
   {
-    employee = new Employee
+    await  Task.Run(()=>
     {
-      Name = "Jhon",
-      Title = "Developer",
-      Department = "Software Developer"
-    };
-    return base.OnInitializedAsync();
+      System.Threading.Thread.Sleep(500);
+      employee = new Employee
+      {
+        Name = "Jhon",
+        Title = "Developer",
+        Department = "Software Developer"
+      };
+    });
   }
 
 

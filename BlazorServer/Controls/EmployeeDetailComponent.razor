@@ -1,22 +1,25 @@
 @using BlazorApp.Models
-<h3>EmployeeDetailComponent</h3>
-<p>
-    Name: @Employee.Name
-</p>
-<p>
-    Title: @Employee.Title
-</p>
-<p>
-    Department: @Employee.Department
-</p>
+@if (this.Employee != null)
+{
+    <h3>EmployeeDetailComponent</h3>
+    <p>
+        Name: @Employee.Name
+    </p>
+    <p>
+        Title: @Employee.Title
+    </p>
+    <p>
+        Department: @Employee.Department
+    </p>
+}
 @code {
     [Parameter]
     public Employee Employee { get; set; }
 
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
-        this.Employee.LoadRecord();
+        base.OnParametersSet();
+        if(this.Employee != null) this.Employee.LoadRecord();
     }
 
 }
