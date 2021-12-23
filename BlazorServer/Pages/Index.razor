@@ -1,13 +1,26 @@
 @page "/"
 @using System.Net.Security
+@using BlazorApp.Models
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?"/>
-
+<EmployeeDetailComponent Employee="employee"></EmployeeDetailComponent>
 @code
 {
-  
+  private int currentCount = 0;
+  private Employee employee;
+
+  protected override void OnInitialized()
+  {
+    base.OnInitialized();
+    System.Threading.Thread.Sleep(4500);
+    employee = new Employee
+    {
+      Name = "Jhon",
+      Title = "Developer",
+      Department = "Software Developer"
+    };
+  }
 }
