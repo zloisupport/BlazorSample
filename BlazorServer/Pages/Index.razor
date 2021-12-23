@@ -12,15 +12,17 @@ Welcome to your new app.
   private int currentCount = 0;
   private Employee employee;
 
-  protected override void OnInitialized()
+
+  protected override Task OnInitializedAsync()
   {
-    base.OnInitialized();
-    System.Threading.Thread.Sleep(4500);
     employee = new Employee
     {
       Name = "Jhon",
       Title = "Developer",
       Department = "Software Developer"
     };
+    return base.OnInitializedAsync();
   }
+
+
 }
