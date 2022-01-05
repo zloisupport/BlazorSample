@@ -1,17 +1,33 @@
 @page "/counter"
 
+@inject CounterStore counterStore
+@inject IActionDispatcher actionDispatcher
 <h1>Counter</h1>
 
-<p>Current count: @currentCount</p>
+<p>Current count: @counterStore.GetState().Count</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
-    private int currentCount = 0;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        counterStore.AddStateChanger(UpdateView);
+    }
 
     private void IncrementCount()
     {
-        currentCount++;
+        actionDispatcher.Dispatch(new IncrementAction());
     }
 
+    private void UpdateView()
+    {
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        counterStore.RemoveStateChanger(UpdateView);
+    }
 }
